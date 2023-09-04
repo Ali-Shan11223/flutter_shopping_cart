@@ -16,7 +16,7 @@ class DBHelper {
     return _database = await initDatabase();
   }
 
-  // Opening a database 
+  // Opening a database
   initDatabase() async {
     io.Directory documentDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentDirectory.path, 'cart.db');
@@ -35,5 +35,20 @@ class DBHelper {
     var dbClient = await database;
     await dbClient!.insert('cart', cartModel.toMap());
     return cartModel;
+  }
+
+  // Fetching data from database
+  Future<List<CartModel>> getCart() async {
+    var dbClient = await database;
+    final List<Map<String, Object?>> queryResult =
+        await dbClient!.query('cart');
+    return queryResult.map((e) => CartModel.fromMap(e)).toList();
+  }
+
+  // Deleting data from database
+  Future<int> delete(int id) async {
+    var dbClient = await database;
+    return await dbClient!.delete('cart', where: 'id = ?', whereArgs: [id]);
+    
   }
 }

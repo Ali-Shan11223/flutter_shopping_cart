@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:provider_shopping_cart/helper/database_helper.dart';
+import 'package:provider_shopping_cart/model/product_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartProvider with ChangeNotifier {
@@ -9,7 +11,19 @@ class CartProvider with ChangeNotifier {
   double _totalPrice = 0.0;
   double get totalPrice => _totalPrice;
 
-  //Setting counter and totalPrice in sharedPreferences
+  DBHelper dbHelper = DBHelper();
+
+  // Fetching records from database
+  late Future<List<CartModel>> _cart;
+  Future<List<CartModel>> get cart => _cart;
+
+  // Function to get data from database
+  Future<List<CartModel>> getData() {
+    _cart = dbHelper.getCart();
+    return _cart;
+  }
+
+  // Setting counter and totalPrice in sharedPreferences
   void setPrefItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('cart_item', _counter);
