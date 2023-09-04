@@ -9,6 +9,9 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
+
+  
+
   List<String> productName = [
     'Banana',
     'Grapes',
@@ -50,7 +53,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         actions: const [
           badge.Badge(
             badgeContent: Text(
-              '1',
+              '0',
               style: TextStyle(color: Colors.white),
             ),
             child: Icon(Icons.shopping_bag_outlined),
@@ -110,7 +113,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                           borderRadius:
                                               BorderRadius.circular(6)),
                                       child: const Center(
-                                          child: Text('Add to Cart')),
+                                          child: Text('Add to Cart',
+                                              style: TextStyle(
+                                                  color: Colors.white))),
                                     ),
                                   )
                                 ],
