@@ -49,6 +49,12 @@ class DBHelper {
   Future<int> delete(int id) async {
     var dbClient = await database;
     return await dbClient!.delete('cart', where: 'id = ?', whereArgs: [id]);
-    
+  }
+
+  // Updating
+  Future<int> update(CartModel cartModel) async {
+    var dbClient = await database;
+    return await dbClient!.update('cart', cartModel.toMap(),
+        where: 'id = ?', whereArgs: [cartModel.id]);
   }
 }
